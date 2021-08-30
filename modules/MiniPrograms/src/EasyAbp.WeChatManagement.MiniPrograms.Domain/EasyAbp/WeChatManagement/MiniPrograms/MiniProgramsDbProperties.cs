@@ -2,10 +2,10 @@
 {
     public static class MiniProgramsDbProperties
     {
-        public static string DbTablePrefix { get; set; } = "EasyAbpWeChatManagementMiniPrograms";
+        public static string DbTablePrefix { get; set; } = "WeChat";
 
         public static string DbSchema { get; set; } = null;
 
-        public const string ConnectionStringName = "EasyAbpWeChatManagementMiniPrograms";
+        public const string ConnectionStringName = "WeChatMini";
     }
 }

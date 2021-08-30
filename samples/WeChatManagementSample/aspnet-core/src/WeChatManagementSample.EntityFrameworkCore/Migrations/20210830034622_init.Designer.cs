@@ -11,8 +11,8 @@ using WeChatManagementSample.EntityFrameworkCore;
 namespace WeChatManagementSample.Migrations
 {
     [DbContext(typeof(WeChatManagementSampleDbContext))]
-    [Migration("20210826121149_Initial440")]
-    partial class Initial440
+    [Migration("20210830034622_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace WeChatManagementSample.Migrations
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("EasyAbp.WeChatManagement.MiniPrograms.MiniProgramUsers.MiniProgramUser", b =>
+            modelBuilder.Entity("EasyAbp.WeChatManagement.Common.WeChatAppUsers.WeChatAppUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,9 +69,6 @@ namespace WeChatManagementSample.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("LastModifierId");
 
-                    b.Property<Guid>("MiniProgramId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("OpenId")
                         .HasColumnType("nvarchar(max)");
 
@@ -91,12 +88,15 @@ namespace WeChatManagementSample.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("WeChatAppId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.ToTable("EasyAbpWeChatManagementMiniProgramsMiniProgramUsers");
+                    b.ToTable("WeChatAppUsers");
                 });
 
-            modelBuilder.Entity("EasyAbp.WeChatManagement.MiniPrograms.MiniPrograms.MiniProgram", b =>
+            modelBuilder.Entity("EasyAbp.WeChatManagement.Common.WeChatApps.WeChatApp", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -170,12 +170,15 @@ namespace WeChatManagementSample.Migrations
                     b.Property<string>("Token")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
                     b.Property<Guid?>("WeChatComponentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.ToTable("EasyAbpWeChatManagementMiniProgramsMiniPrograms");
+                    b.ToTable("WeChatApps");
                 });
 
             modelBuilder.Entity("EasyAbp.WeChatManagement.MiniPrograms.UserInfos.UserInfo", b =>
@@ -254,7 +257,7 @@ namespace WeChatManagementSample.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EasyAbpWeChatManagementMiniProgramsUserInfos");
+                    b.ToTable("WeChatUserInfos");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>
@@ -2138,6 +2141,11 @@ namespace WeChatManagementSample.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
+                    b.Property<string>("TenantOwnerName")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Name");
@@ -2162,6 +2170,72 @@ namespace WeChatManagementSample.Migrations
                     b.HasKey("TenantId", "Name");
 
                     b.ToTable("AbpTenantConnectionStrings");
+                });
+
+            modelBuilder.Entity("Volo.Abp.TenantManagement.UserTenant", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnName("ConcurrencyStamp");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreationTime");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CreatorId");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("DeleterId");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("DeletionTime");
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ExtraProperties");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsDeleted");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("LastModificationTime");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("LastModifierId");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("TenantOwnerName")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AbpUserTenants");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>

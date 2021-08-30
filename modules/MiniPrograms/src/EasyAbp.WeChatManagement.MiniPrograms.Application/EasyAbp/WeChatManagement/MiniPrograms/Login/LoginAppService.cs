@@ -153,10 +153,16 @@ namespace EasyAbp.WeChatManagement.MiniPrograms.Login
 
             using (var uow = UnitOfWorkManager.Begin(new AbpUnitOfWorkOptions(true), true))
             {
-                var identityUser =
-                    await _identityUserManager.FindByLoginAsync(loginResult.LoginProvider, loginResult.ProviderKey) ??
-                    await _miniProgramLoginNewUserCreator.CreateAsync(loginResult.LoginProvider,
-                        loginResult.ProviderKey);
+                IdentityUser identityUser =
+                    await _identityUserManager.FindByLoginAsync(loginResult.LoginProvider, loginResult.ProviderKey);
+                if (identityUser == null)
+                {
+                    var AllowCreateUserWhenLogin = await SettingProvider.GetOrNullAsync(MiniProgramsSettings.AllowCreateUserWhenLogin);
+                    if (Convert.ToBoolean(AllowCreateUserWhenLogin) == true)
+                        await _miniProgramLoginNewUserCreator.CreateAsync(loginResult.LoginProvider, loginResult.ProviderKey);
+                    else
+                        throw new WeChatAccountHasNotBeenBoundException();
+                }
 
                 await UpdateWeChatAppUserAsync(identityUser, loginResult.MiniProgram, loginResult.UnionId,
                     loginResult.Code2SessionResponse.OpenId, loginResult.Code2SessionResponse.SessionKey);

@@ -51,6 +51,7 @@ namespace WeChatManagementSample.EntityFrameworkCore
         // Tenant Management
         public DbSet<Tenant> Tenants { get; set; }
         public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
+        public DbSet<UserTenant> UserTenants { get; set; }
 
         #endregion
 

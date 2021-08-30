@@ -18,6 +18,13 @@
     "Setting:PcLoginHandlePage": "PC 登录处理页面",
     "Setting:DefaultPcLoginWeChatAppName": "PC 登录默认微信应用名",
     "WeChatAccountHasBeenBound": "您的微信已被其他用户绑定",
-    "WeChatAccountHasNotBeenBound": "您的微信尚未绑定"
+    "WeChatAccountHasNotBeenBound": "您的微信尚未绑定",
+    "DisplayName:EasyAbp.WeChatManagement.MiniPrograms.DefaultMiniProgramName": "名称",
+    "Description:EasyAbp.WeChatManagement.MiniPrograms.DefaultMiniProgramName": "小程序名称",
+    "DisplayName:EasyAbp.WeChatManagement.MiniPrograms.HandlePage": "处理页",
+    "Description:EasyAbp.WeChatManagement.MiniPrograms.HandlePage": "pc登录结果处理页面",
+    "DisplayName:EasyAbp.WeChatManagement.MiniPrograms.AllowCreateUserWhenLogin": "创建用户",
+    "Description:EasyAbp.WeChatManagement.MiniPrograms.AllowCreateUserWhenLogin": "微信登录时如果用户不存在，是否允许创建用户"
+
   }
 }
